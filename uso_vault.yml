@@ -1,0 +1,19 @@
+---
+- name: 'Pregunta 7 - Vault'
+  hosts: dev
+  vars_files:
+    vars/password.yml
+  tasks:
+    - name: 'Crea el usuario pepe'
+      vars:
+        usuario: "pepe"
+      user:
+        name: '{{ usuario }}'
+        password: "{{ contrasena01 | password_hash('sha512') }}"
+    
+    - name: 'Crea el usuario juan'
+      vars:
+        usuario: "juan"
+      user:
+        name: '{{ usuario }}'
+        password: "{{ contrasena02 | password_hash('sha512') }}"

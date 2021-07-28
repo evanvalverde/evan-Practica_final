@@ -1,2 +1,26 @@
 ---
-# tasks file for ejemplo-apache
+- name: "Instala Apache"
+  yum:
+    name: httpd
+    state: present
+
+- name: "Arranca firewalld y lo habilita en el arranque"
+  systemd:
+    name: firewalld
+    state: started
+
+- name: "Habilita http en firewalld"
+  firewalld:
+    service: http
+    permanent: yes
+    state: enabled
+    immediate: yes
+
+- name: "Inserta contenido en el archivo index.html"
+  copy:
+    content: |
+      FQDN del nodo: {{ ansible_host }}
+      IP del nodo: {{ ansible_default_ipv4.address }}
+    dest: "/var/www/html/index.html"
+  notify:
+    - restart httpd

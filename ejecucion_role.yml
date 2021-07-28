@@ -1,0 +1,5 @@
+---
+- name: 'Pregunta 6 - Roles'
+  hosts: prod
+  roles:
+    - ejemplo-apache
